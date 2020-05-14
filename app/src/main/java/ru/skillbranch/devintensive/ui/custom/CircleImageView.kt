@@ -99,7 +99,7 @@ class CircleImageView @JvmOverloads constructor(
 
     @Dimension
     fun getBorderWidth() = convertPxToDp(borderWidthPx)
-    
+
     fun setBorderWidth(dp: Int) {
         val newWidth = convertDpToPx(dp)
         if (newWidth != borderWidthPx) {

@@ -72,4 +72,21 @@ object Utils {
             else -> character.toString()
         }
     }
+
+    fun mathGitHubAccount(adress:String):Boolean = adress.matches(
+            Regex("^(http(s){0,1}:\\/\\/){0,1}(www.){0,1}github.com\\/[A-z\\d](?:[A-z\\d]|-(?=[A-z\\d])){0,38}\$",RegexOption.IGNORE_CASE)) &&
+            !adress.matches(Regex("^.*(" +
+                    "\\/enterprise|" +
+                    "\\/features|" +
+                    "\\/topics|" +
+                    "\\/collections|" +
+                    "\\/trending|" +
+                    "\\/events|" +
+                    "\\/marketplace" +
+                    "|\\/pricing|" +
+                    "\\/nonprofit|" +
+                    "\\/customer-stories|" +
+                    "\\/security|" +
+                    "\\/login|" +
+                    "\\/join)\$",RegexOption.IGNORE_CASE))
 }

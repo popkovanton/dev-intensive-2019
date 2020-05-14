@@ -3,10 +3,10 @@ package ru.skillbranch.devintensive.models
 import ru.skillbranch.devintensive.utils.Utils
 
 data class Profile(
-        val firstName: String,
-        val lastName: String,
-        val about: String,
-        val repository: String,
+        var firstName :String = "",
+        var lastName :String = "",
+        var about :String = "",
+        var repository :String = "",
         val rating: Int = 0,
         val respect: Int = 0
 ) {
