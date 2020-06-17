@@ -69,8 +69,7 @@ class ProfileActivity : AppCompatActivity() {
             ColorDrawable(color.data)
         }
         iv_avatar.setImageDrawable(drawable)
-        iv_avatar.setText(initials)
-
+        //iv_avatar.setInitials(initials)
     }
 
     private fun updateUI(profile: Profile) {
