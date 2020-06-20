@@ -3,6 +3,7 @@ package ru.skillbranch.devintensive.models.data
 import androidx.annotation.VisibleForTesting
 import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
+import ru.skillbranch.devintensive.models.TextMessage
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
@@ -16,21 +17,21 @@ data class Chat(
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
-        //TODO должен возвращать количество непрочитанных сообщений в чате
-        return 0
+        return messages.size
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageDate(): Date? {
-        //TODO должен вeрнуть дату последнего сообщения, если таковое имеется, иначе null
-        return Date()
+        return if (messages.size != 0) messages[messages.size - 1].date else null
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageShort(): Pair<String, String> {
-       //TODO должен вернуть пару значений. Первое - строка с текстом сообщения (если сообщение TextMessage),
-        // TODO строка "user.firstName - отправил фото" (если сообщение ImageMessage). Второе значение - имя автора сообщения 28 символов
-        return "Сообщений ещё нет" to "@John_Doe"
+    fun lastMessageShort(): Pair<String?, String?> {
+        if (messages.size == 0) return null to null
+        val message = messages[messages.size - 1]
+        val first = if (message is TextMessage) message.text else "${message.from.firstName}  - отправил фото"
+        return first to message.from.firstName
+        //return "Сообщений ещё нет" to "@John_Doe"
     }
 
     private fun isSingle(): Boolean = members.size == 1
@@ -39,33 +40,33 @@ data class Chat(
         return if (isSingle()) {
             val user = members.first()
             ChatItem(
-                id,
-                user.avatar,
-                Utils.toInitials(user.firstName, user.lastName) ?: "??",
-                "${user.firstName ?: ""} ${user.lastName ?: ""}",
-                lastMessageShort().first,
-                unreadableMessageCount(),
-                lastMessageDate()?.shortFormat(),
-                user.isOnline
+                    id,
+                    user.avatar,
+                    Utils.toInitials(user.firstName, user.lastName) ?: "??",
+                    "${user.firstName ?: ""} ${user.lastName ?: ""}",
+                    lastMessageShort().first,
+                    unreadableMessageCount(),
+                    lastMessageDate()?.shortFormat(),
+                    user.isOnline
             )
         } else {
             ChatItem(
-                id,
-                null,
-                "",
-                title,
-                lastMessageShort().first,
-                0,
-                lastMessageDate()?.shortFormat(),
-                false,
-                ChatType.GROUP,
-                lastMessageShort().second
+                    id,
+                    null,
+                    "",
+                    title,
+                    lastMessageShort().first,
+                    0,
+                    lastMessageDate()?.shortFormat(),
+                    false,
+                    ChatType.GROUP,
+                    lastMessageShort().second
             )
         }
     }
 }
 
-enum class ChatType{
+enum class ChatType {
     SINGLE,
     GROUP,
     ARCHIVE

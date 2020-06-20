@@ -29,7 +29,7 @@ class GroupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group)
-        initToolbar()
+        initToolBar()
         initViews()
         initViewModel()
     }
@@ -63,7 +63,7 @@ class GroupActivity : AppCompatActivity() {
         }
     }
 
-    private fun initToolbar() {
+    private fun initToolBar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -72,13 +72,13 @@ class GroupActivity : AppCompatActivity() {
     private fun initViews() {
         userAdapter = UserAdapter { viewModel.handelSelectedItem(it.id) }
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        with(rv_users_list) {
+        with(rv_user_list) {
             adapter = userAdapter
             layoutManager = LinearLayoutManager(this@GroupActivity)
             addItemDecoration(divider)
         }
 
-        fab_group.setOnClickListener {
+        fab.setOnClickListener {
             viewModel.handleCreateGroup()
             finish()
             overridePendingTransition(R.anim.idle, R.anim.bottom_down)
@@ -95,8 +95,8 @@ class GroupActivity : AppCompatActivity() {
     }
 
     private fun toggleFab(isShow: Boolean) {
-        if (isShow) fab_group.show()
-        else fab_group.hide()
+        if (isShow) fab.show()
+        else fab.hide()
     }
 
     private fun addChipToGroup(user: UserItem) {
