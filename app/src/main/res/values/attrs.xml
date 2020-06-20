@@ -14,4 +14,12 @@
         <attr name="aiv_initials" format="string"/>
     </declare-styleable>
 
+    <declare-styleable name="CircleImageView">
+        <attr name="cv_borderColor" format="color"/>
+        <attr name="cv_borderWidth" format="dimension"/>
+        <attr name="cv_text" format="string"/>
+        <attr name="cv_textSize" format="dimension"/>
+        <attr name="cv_textColor" format="color"/>
+    </declare-styleable>
+
 </resources>
